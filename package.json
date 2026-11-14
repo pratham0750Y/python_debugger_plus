@@ -1,0 +1,211 @@
+{
+  "name": "py-debug-plus",
+  "displayName": "Py Debug Plus",
+  "description": "Extras for debugging Python: step back (recorded replay), auto-open functions you step into, list range control and a live variables panel.",
+  "version": "0.9.3",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Debuggers"
+  ],
+  "activationEvents": [
+    "onDebug"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pyDebugPlus.stepBack",
+        "title": "Py Debug Plus: Step Back (Replay)",
+        "icon": "$(debug-reverse-continue)"
+      },
+      {
+        "command": "pyDebugPlus.stepForward",
+        "title": "Py Debug Plus: Forward (Replay, or Next Line when live)",
+        "icon": "$(arrow-right)"
+      },
+      {
+        "command": "pyDebugPlus.continue",
+        "title": "Py Debug Plus: Continue to Next Breakpoint",
+        "icon": "$(debug-continue)"
+      },
+      {
+        "command": "pyDebugPlus.openLiveView",
+        "title": "Py Debug Plus: Open Live Variables",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "pyDebugPlus.setListRange",
+        "title": "Py Debug Plus: Set List Range\u2026"
+      },
+      {
+        "command": "pyDebugPlus.clearHistory",
+        "title": "Py Debug Plus: Clear Recorded History"
+      },
+      {
+        "command": "pyDebugPlus.chooseVariables",
+        "title": "Py Debug Plus: Choose Variables to Show\u2026"
+      },
+      {
+        "command": "pyDebugPlus.showLog",
+        "title": "Py Debug Plus: Show Log"
+      },
+      {
+        "command": "pyDebugPlus.runLine",
+        "title": "Py Debug Plus: Run a Python Line\u2026"
+      },
+      {
+        "command": "pyDebugPlus.toggleLive",
+        "title": "Py Debug Plus: Toggle Live Refresh"
+      },
+      {
+        "command": "pyDebugPlus.toggleRerun",
+        "title": "Py Debug Plus: Toggle Rerun on Save"
+      },
+      {
+        "command": "pyDebugPlus.forceRefresh",
+        "title": "Py Debug Plus: Force Refresh Variables"
+      },
+      {
+        "command": "pyDebugPlus.pauseProgram",
+        "title": "Py Debug Plus: Pause Program"
+      }
+    ],
+    "menus": {
+      "debug/toolbar": [
+        {
+          "command": "pyDebugPlus.stepBack",
+          "group": "navigation@1"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "pyDebugPlus.stepBack",
+          "when": "inDebugMode && resourceLangId == python",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pyDebugPlus.continue",
+          "when": "inDebugMode && resourceLangId == python",
+          "group": "navigation@2"
+        },
+        {
+          "command": "pyDebugPlus.openLiveView",
+          "when": "inDebugMode && resourceLangId == python",
+          "group": "navigation@3"
+        }
+      ],
+      "debug/variables/context": [
+        {
+          "command": "pyDebugPlus.setListRange",
+          "group": "pydebugplus@1"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "pyDebugPlus.stepBack",
+        "key": "ctrl+alt+left",
+        "when": "inDebugMode"
+      },
+      {
+        "command": "pyDebugPlus.stepForward",
+        "key": "ctrl+alt+right",
+        "when": "inDebugMode"
+      },
+      {
+        "command": "pyDebugPlus.continue",
+        "key": "ctrl+alt+c",
+        "when": "inDebugMode"
+      }
+    ],
+    "configuration": {
+      "title": "Py Debug Plus",
+      "properties": {
+        "pyDebugPlus.maxHistory": {
+          "type": "number",
+          "default": 500,
+          "description": "How many stops to record for Step Back."
+        },
+        "pyDebugPlus.defaultListRange": {
+          "type": "number",
+          "default": 100,
+          "description": "Items shown per list/tuple/array before you set a range."
+        },
+        "pyDebugPlus.maxDepth": {
+          "type": "number",
+          "default": 2,
+          "description": "How many levels of nested values the live panel expands."
+        },
+        "pyDebugPlus.maxChildren": {
+          "type": "number",
+          "default": 200,
+          "description": "Max entries read per variable group."
+        },
+        "pyDebugPlus.autoOpenLiveView": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open the Live Variables panel when a Python debug session starts."
+        },
+        "pyDebugPlus.stepIntoLibraries": {
+          "type": "boolean",
+          "default": true,
+          "description": "Turn off debugpy's 'justMyCode' for Python sessions so stepping can enter built-in and pip package code. Applies to sessions started after the change."
+        },
+        "pyDebugPlus.showLibraryVariables": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show imported built-in/pip modules in the Live Variables panel, and variables while paused inside library code. Off by default. Your own modules are shown but never expanded."
+        },
+        "pyDebugPlus.keepDefaultDebugViewClosed": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep VS Code's Run and Debug side panel from opening when debugging starts or pauses (sets debug.openDebug to neverOpen)."
+        },
+        "pyDebugPlus.skipFrozenFrames": {
+          "type": "boolean",
+          "default": true,
+          "description": "If a step lands in Python-internal frozen code with no source file (e.g. import machinery), keep stepping in until real code is reached."
+        },
+        "pyDebugPlus.stopDebuggingOnClose": {
+          "type": "boolean",
+          "default": true,
+          "description": "Stop all debug sessions when VS Code (or the extension host) shuts down, so the debugged program does not keep running."
+        },
+        "pyDebugPlus.hideDefaultInlineValues": {
+          "type": "boolean",
+          "default": true,
+          "description": "Turn off VS Code's inline values (the grey values it draws next to every variable in the editor) when debugging starts. Sets debug.inlineValues to false."
+        },
+        "pyDebugPlus.showInlineSelected": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the values of your chosen variables at the end of the lines that use them while paused."
+        },
+        "pyDebugPlus.runLineMaxTries": {
+          "type": "number",
+          "default": 10,
+          "description": "When you run a line while the program is running and name a function or class, how many times to pause and retry until the program is inside it."
+        },
+        "pyDebugPlus.liveRefreshMs": {
+          "type": "number",
+          "default": 1000,
+          "description": "Live refresh: how often (in milliseconds) the program is briefly paused so your chosen variables can be re-read. Minimum 250."
+        },
+        "pyDebugPlus.rerunDelayMs": {
+          "type": "number",
+          "default": 600,
+          "description": "Rerun on save: wait this long after a save before restarting, so several quick saves restart once."
+        },
+        "pyDebugPlus.orderByCreation": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show an object's attributes (and dictionary entries) in the order they were created instead of alphabetically."
+        }
+      }
+    }
+  }
+}

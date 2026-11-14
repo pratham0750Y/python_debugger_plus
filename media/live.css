@@ -1,0 +1,33 @@
+body { font-family: var(--vscode-font-family); font-size: var(--vscode-font-size); color: var(--vscode-foreground); padding: 8px; }
+#bar { display: flex; gap: 6px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+#mode { font-weight: 600; margin-right: auto; padding: 2px 8px; border-radius: 10px; background: var(--vscode-badge-background); color: var(--vscode-badge-foreground); }
+#mode.replay { background: #2f6fd0; color: #fff; }
+button { background: var(--vscode-button-secondaryBackground); color: var(--vscode-button-secondaryForeground); border: 0; padding: 3px 8px; cursor: pointer; border-radius: 2px; }
+button:hover { background: var(--vscode-button-secondaryHoverBackground); }
+#loc { opacity: .8; margin-bottom: 8px; font-family: var(--vscode-editor-font-family); }
+.row, summary { font-family: var(--vscode-editor-font-family); padding: 1px 4px; white-space: pre-wrap; word-break: break-all; }
+summary { cursor: pointer; }
+.body { margin-left: 14px; border-left: 1px solid var(--vscode-editorIndentGuide-background); padding-left: 6px; }
+.changed { background: var(--vscode-editor-findMatchHighlightBackground, rgba(255,200,0,.3)); }
+.range { margin: 3px 0 5px; opacity: .9; }
+.range input { width: 64px; background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border, transparent); padding: 1px 3px; }
+.edit { margin: 2px 0; font-family: var(--vscode-editor-font-family); }
+.edit input { width: 60%; min-width: 140px; background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-focusBorder); padding: 1px 4px; margin: 0 4px; }
+summary input[type=checkbox], .row input[type=checkbox] { vertical-align: middle; margin: 0 2px 0 0; }
+#addbar { display: flex; gap: 6px; margin-bottom: 6px; }
+#addbar input { background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border, transparent); padding: 2px 5px; }
+#addname { flex: 1; min-width: 120px; }
+#addrange { width: 150px; }
+.missing { opacity: .75; }
+.missing input[type=number] { width: 60px; background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border, transparent); }
+#runbar { display: flex; gap: 6px; margin-bottom: 4px; }
+#runbar input { flex: 1; min-width: 120px; background: var(--vscode-input-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border, transparent); padding: 2px 5px; font-family: var(--vscode-editor-font-family); }
+#runout { min-height: 1.2em; margin-bottom: 6px; white-space: pre-wrap; word-break: break-all; font-family: var(--vscode-editor-font-family); }
+#runout.ok { color: var(--vscode-testing-iconPassed, #3fb950); }
+#runout.err { color: var(--vscode-errorForeground, #f85149); }
+#livestat { opacity: .7; font-size: .9em; margin-bottom: 4px; }
+#statusrow { height: 26px; display: flex; align-items: center; margin-bottom: 6px; }
+#mode { margin-right: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#bar button { min-height: 24px; }
+#live, #only { min-width: 9.5em; }
+#livestat { min-height: 1.3em; }
